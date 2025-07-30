@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# ignore model files
+/public/model/*.h5
+/public/model/*.bin
+/public/model/model.json
