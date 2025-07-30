@@ -87,41 +87,89 @@ export default function DeteksiJajanan() {
         background: 'rgba(255,255,255,0.97)',
         borderRadius: 20,
         boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
-        padding: 36,
+        padding: 0,
         minWidth: 340,
         maxWidth: 370,
         textAlign: 'center',
         margin: 24,
         zIndex: 1,
+        overflow: 'hidden'
       }}>
-        <h2 style={{
-          color: '#d7263d',
-          fontWeight: 700,
-          letterSpacing: 1,
-          marginBottom: 18,
-          fontSize: 32
-        }}>Jajanan Tradisional</h2>
+        {/* Header menu */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(90deg, #ff6347 60%, #ffb347 100%)',
+          padding: '0 0 0 0',
+          height: 54,
+          borderBottom: '2px solid #ffe0b2',
+          marginBottom: 0
+        }}>
+          <div style={{
+            flex: 1,
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: 18,
+            letterSpacing: 1,
+            padding: '0 0 0 0',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRight: '1.5px solid #ffb347',
+            cursor: 'pointer',
+            background: 'rgba(255,255,255,0.03)'
+          }}>
+            Jajanan
+          </div>
+          <div style={{
+            flex: 1,
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: 18,
+            letterSpacing: 1,
+            padding: '0 0 0 0',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            background: 'rgba(255,255,255,0.07)'
+          }}>
+            Deteksi Jajanan
+          </div>
+        </div>
+        <div style={{padding: 36, paddingTop: 24}}>
+          <h2 style={{
+            color: '#d7263d',
+            fontWeight: 700,
+            letterSpacing: 1,
+            marginBottom: 18,
+            fontSize: 28
+          }}>Jajanan Tradisional</h2>
 
         <label htmlFor="file-upload" style={{
-          display: 'inline-block',
-          background: 'linear-gradient(90deg, #ff6347 60%, #ffb347 100%)',
-          color: '#fff',
-          padding: '12px 28px',
-          borderRadius: 10,
-          fontWeight: 600,
-          fontSize: 18,
-          cursor: 'pointer',
-          marginBottom: 18,
-          boxShadow: '0 2px 8px rgba(255,99,71,0.12)'
-        }}>
-          Pilih Gambar
-          <input
-            id="file-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleUpload}
-            style={{ display: 'none' }}
-          />
+            display: 'inline-block',
+            background: 'linear-gradient(90deg, #ff6347 60%, #ffb347 100%)',
+            color: '#fff',
+            padding: '12px 28px',
+            borderRadius: 10,
+            fontWeight: 600,
+            fontSize: 18,
+            cursor: 'pointer',
+            marginBottom: 18,
+            boxShadow: '0 2px 8px rgba(255,99,71,0.12)'
+          }}>
+            Pilih Gambar
+            <input
+              id="file-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleUpload}
+              style={{ display: 'none' }}
+            />
         </label>
         {fileName && (
           <div style={{ color: '#888', fontSize: 13, marginBottom: 10 }}>{fileName}</div>
@@ -208,6 +256,7 @@ export default function DeteksiJajanan() {
             }}>Belum ada gambar</div>
           </div>
         )}
+        </div>
       </div>
       <div style={{marginTop: 12, color: '#fff', fontSize: 13, opacity: 0.8, zIndex: 1}}>
         <span>Jajan &copy; 2025 | Kelompok 1</span>
