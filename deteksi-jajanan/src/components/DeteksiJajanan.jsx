@@ -12,6 +12,7 @@ export default function DeteksiJajanan() {
   const [hasil, setHasil] = useState("-");
   const [model, setModel] = useState(null);
   const [fileName, setFileName] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
 
   // Muat model 1× saja saat tombol pertama kali diklik
   async function loadModelOnce() {
@@ -30,15 +31,17 @@ export default function DeteksiJajanan() {
 
     // tampilkan pratinjau
     const url = URL.createObjectURL(file);
-    imgRef.current.src = url;
+    setImgUrl(url);
 
     const mdl = await loadModelOnce();
 
-    // tunggu gambar selesai di‑render
-    imgRef.current.onload = async () => {
+    // Tunggu gambar selesai di-render
+    const img = new window.Image();
+    img.src = url;
+    img.onload = async () => {
       const tensor = tf.tidy(() =>
         tf.browser
-          .fromPixels(imgRef.current)
+          .fromPixels(img)
           .resizeNearestNeighbor([INPUT_SIZE, INPUT_SIZE])
           .toFloat()
           .div(255.0)
@@ -175,8 +178,8 @@ export default function DeteksiJajanan() {
           <div style={{ color: '#888', fontSize: 13, marginBottom: 10 }}>{fileName}</div>
         )}
 
-        {/* Polaroid style preview */}
-        {hasil !== '-' && (
+        {/* Polaroid style preview: tampilkan gambar jika sudah dipilih, jika belum tampilkan placeholder */}
+        {fileName ? (
           <div style={{
             background: '#fff',
             borderRadius: 14,
@@ -187,9 +190,13 @@ export default function DeteksiJajanan() {
             border: '2.5px solid #eee',
             position: 'relative',
             transition: 'box-shadow 0.2s',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}>
             <img
               ref={imgRef}
+              src={imgUrl}
               alt="preview"
               style={{
                 width: '100%',
@@ -203,18 +210,16 @@ export default function DeteksiJajanan() {
             />
             <div style={{
               fontSize: 18,
-              color: '#388e3c',
+              color: hasil !== '-' ? '#388e3c' : '#bbb',
               fontWeight: 700,
               letterSpacing: 0.5,
               textAlign: 'center',
-              textShadow: '0 2px 8px #ffb34744',
-              marginTop: 0
-            }}>{hasil}</div>
+              textShadow: hasil !== '-' ? '0 2px 8px #ffb34744' : 'none',
+              marginTop: 0,
+              minHeight: 24
+            }}>{hasil !== '-' ? hasil : 'Gambar siap dideteksi'}</div>
           </div>
-        )}
-
-        {/* Jika belum ada gambar, tampilkan placeholder polaroid kosong */}
-        {hasil === '-' && (
+        ) : (
           <div style={{
             background: '#fff',
             borderRadius: 14,
